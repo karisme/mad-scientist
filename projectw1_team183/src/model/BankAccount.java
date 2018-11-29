@@ -3,17 +3,16 @@ package model;
 
 import exceptions.TooMuchMoneyException;
 import exceptions.YouAreBrokeException;
+import investements.StockInvest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.*;
 
 
-import java.util.List;
-import java.util.Scanner;
 import java.text.DecimalFormat;
 
 public class BankAccount {
@@ -38,8 +37,8 @@ public class BankAccount {
     public void deposit() throws TooMuchMoneyException {
         System.out.print("How much would you like to deposit: ");
         double depositAmount = reader.nextDouble();
-        if (depositAmount >= 1000000) {
-            throw new TooMuchMoneyException();
+        if (depositAmount >= 1000000000) {
+            throw new TooMuchMoneyException("Alert!", "This is an unsually high amount of cash!");
         }
 
 
@@ -90,7 +89,7 @@ public class BankAccount {
             String record = "Withdraw: " + withdrawAmount;
             accountHistory.add(record);
         } else {
-            throw new YouAreBrokeException();
+            throw new YouAreBrokeException("Alert!", "You are broke, you don't have that money fam, you're not slick.");
         }
 
 
@@ -100,7 +99,7 @@ public class BankAccount {
     }
 
     // getters nd ish...
-    public double getBalance() {
+    private double getBalance() {
         return this.balance;
     }
     public String getName () {
@@ -128,13 +127,15 @@ public class BankAccount {
     }
 
     // EFFECTS: Saves the class onto file nd dat. Reads the input frm the file innit.
-    public void save() throws IOException{
+    private void save() throws IOException{
         int i = 1;
         PrintWriter writer = new PrintWriter("recordfile.txt", "UTF-8");
         List<String> currentDateList;
         currentDateList = Files.readAllLines(Paths.get("currentdate.txt"));
-        writer.println(currentDateList.get(0));
+        Date today = Calendar.getInstance().getTime();
+        writer.println(today);
         writer.println(currentDateList.get(1));
+        writer.println();
 
         for (String record : accountHistory) {
 
@@ -158,7 +159,7 @@ public class BankAccount {
         double amount = reader.nextDouble();
         if (amount <= this.balance) {
             this.balance = this.balance - amount;
-            Stock playStock = new StockInvest();
+            StockInvest playStock = new StockInvest();
             String record = "Invested: $" + amount;
             accountHistory.add(record);
             playStock.setup(amount);

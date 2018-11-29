@@ -1,11 +1,12 @@
 package ui;
 import model.Customer;
 
-
 import java.util.Scanner;
 
 
 public class BankStart {
+    public static String[] args;
+
 
     // ready set go the ting.
     public static void main(String[] args) {
@@ -44,5 +45,13 @@ public class BankStart {
                "Please come back with your parent or guardian.");
    }
 
+
+
+    public static String[] getArgs() {
+      return args;
     }
+}
+
+
+
 

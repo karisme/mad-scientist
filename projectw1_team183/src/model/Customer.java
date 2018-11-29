@@ -1,16 +1,16 @@
 package model;
 
-import SavageMode.Robber;
-import SavageMode.BankSafe;
-import SavageMode.Security;
+import exceptions.SuspiciousBehaviourException;
 import exceptions.TooMuchMoneyException;
 import exceptions.YouAreBrokeException;
-import interfaces.Person;
+import base.Person;
 
 
 import java.util.Scanner;
 
-public class Customer implements Person {
+import static SavageMode.BankSafe.initializeRobbery;
+
+public class Customer extends Person {
     private String name;
     private BankAccount account = new BankAccount(this);
     private int age;
@@ -51,31 +51,16 @@ public class Customer implements Person {
                 } else if (choice.equals("6")) {
                 initializeRobbery();
             }
-        } catch (YouAreBrokeException e) {
-            System.out.println("You don't got that kinda money!");
-        } catch (TooMuchMoneyException e) {
-            System.out.println("That is an unusually high amount of cash. Notifying authorities. You better run boi.");
-            System.exit(0);
+        } catch (SuspiciousBehaviourException e) {
+            System.out.println("Try again.");
+        } catch (Exception e) {
+            System.out.println("lol");
         }
-        }
-    }
 
-    private void initializeRobbery() {
-        System.out.println("Would you like to play as:");
-        System.out.println("(1) The Thief");
-        System.out.println("(2) The Security");
-        String choice = reader.nextLine();
-
-
-        if (choice.equals("1")) {
-            BankSafe letsPlay = new Robber();
-            letsPlay.startHeist();
-        } else if (choice.equals("2")) {
-            BankSafe safety = new Security();
-            safety.startHeist();
         }
 
     }
+
 
 //    setBankAccount() {
 //

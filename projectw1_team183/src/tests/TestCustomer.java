@@ -1,14 +1,14 @@
 package tests;
 
 import model.Customer;
-import interfaces.Person;
+import base.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestCustomer {
-    private Person user;
+    private Customer user;
     private final String name = "Ali";
     private final int age = 21;
 
